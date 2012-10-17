@@ -2,6 +2,7 @@ package aufgabe1.main;
 
 import aufgabe1.collection.AbstractMain;
 import aufgabe1.dictionary.Dictionary;
+import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.dictionary.SortedArrayDictionary;
 import aufgabe1.gui.FrmMainWindowDictionary;
 
@@ -12,15 +13,11 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		 // create Beans
-//		 AbstractMain.setBean("IHandleTelefonBuch", new HandleTelefonBuch());
+		 AbstractMain.setBean("Dictionary", new SortedArrayDictionary<String, DictionaryWordBean>());
 		 
 		 // create GUI
 	     FrmMainWindowDictionary frmDictionary = new FrmMainWindowDictionary();
 	     frmDictionary.setVisible(true);
-		Dictionary<String, String> dict = new SortedArrayDictionary<>();
-		AbstractMain.readDictionary("D:\\dtengl.txt", dict);
-		
-		System.out.println(dict.toString());
 	}
 
 }

@@ -1,8 +1,7 @@
 package aufgabe1.gui.binder;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import aufgabe1.collection.AbstractMain;
+import aufgabe1.dictionary.Dictionary;
 import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.gui.panels.BpaWordEntry;
 import aufgabe1.gui.tables.TblDictionaryList;
@@ -17,9 +16,12 @@ public class BindDictionaryData {
 
 	
 	public void refreshList() {
-		// TODO
-		List<DictionaryWordBean> list = new LinkedList<DictionaryWordBean>();		
-		table.getTableModel().setDataToModel(list);
+		Dictionary<String, DictionaryWordBean> dict = (Dictionary<String, DictionaryWordBean>)
+					AbstractMain.getBean("Dictionary");
+			
+		
+		
+//		table.getTableModel().setDataToModel(list);
 	}
 	
 	public void readBean(BpaWordEntry detail, DictionaryWordBean bean) {

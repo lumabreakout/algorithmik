@@ -8,13 +8,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
+import aufgabe1.collection.AbstractMain;
 import aufgabe1.dictionary.ChoiseImpl;
+import aufgabe1.dictionary.Dictionary;
+import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.gui.navigation.IChoiseableMenu;
 import aufgabe1.gui.navigation.MnuDictionary;
 import aufgabe1.gui.tables.TblDictionaryList;
@@ -76,10 +78,11 @@ public class FrmMainWindowDictionary extends JFrame {
 			int res = fileChooser.showOpenDialog(FrmMainWindowDictionary.this);
 			if (res == JFileChooser.APPROVE_OPTION) {
 	            File file = fileChooser.getSelectedFile();
-//	            getTelHanlder().read(file);
+	            AbstractMain.readDictionary(file, (Dictionary<String, DictionaryWordBean>) 
+	            		AbstractMain.getBean("Dictionary"));
 	            
-//	            getTblTelefonBuch().refreshList();
-//	            getTblTelefonBuch().setChanged(false);
+	            getTblTelefonBuch().refreshList();
+	            getTblTelefonBuch().setChanged(false);
 			}
 		}		
 	}

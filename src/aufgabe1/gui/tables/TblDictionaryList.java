@@ -11,8 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import aufgabe1.collection.AbstractMain;
-import aufgabe1.collection.IHandleDictionary;
-import aufgabe1.dictionary.ChoiseImpl;
+import aufgabe1.dictionary.Dictionary;
 import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.gui.FrmMainWindowDictionary;
 import aufgabe1.gui.binder.BindDictionaryData;
@@ -32,10 +31,11 @@ public class TblDictionaryList extends JTable {
 			}
 			
 			
-			if (!getHandler().insert(frmMainWindow.getImpl(), bean)) {
+			if (getHandler().search(bean.getGerman()) == null) {
 				JOptionPane.showMessageDialog(frmMainWindow,
 						"Fehler beim Speichern. Die Telefonnummer existiert bereits");
 			} else {
+				getHandler().insert(bean.getGerman(), bean);
 				setChanged(true);
 				refreshList();
 			}
@@ -54,10 +54,12 @@ public class TblDictionaryList extends JTable {
 			if (res == JOptionPane.YES_OPTION) {
 				DictionaryWordBean bean = new DictionaryWordBean();
 				bean = getBinder().writeBean(getDetailEntry(), bean);
-				if (!getHandler().remove(frmMainWindow.getImpl(),  bean)) {
+								
+				if (getHandler().search(bean.getGerman()) == null) {
 					JOptionPane.showMessageDialog(frmMainWindow,
-					"Fehler beim lÃ¶schen. SchlÃ¼ssel existiert nicht");
+					"Fehler beim löschen. Schlüssel existiert nicht");
 				} else {
+					getHandler().remove(bean.getGerman());
 					setChanged(true);
 					refreshList();
 				}
@@ -71,7 +73,7 @@ public class TblDictionaryList extends JTable {
 			DictionaryWordBean searchBean = new DictionaryWordBean();
 			searchBean = getBinder().
 				writeBean(getDetailEntry(), searchBean);			
-			getHandler().search(frmMainWindow.getImpl(), searchBean);					
+			getHandler().search(searchBean.getGerman());					
 		}
 	}
 	
@@ -171,9 +173,8 @@ public class TblDictionaryList extends JTable {
 	}
 	
 	
-	public IHandleDictionary getHandler() {
-		return null;
-//		return (IHandleDictionary) AbstractMain.getBean("IHandleDictionary");
+	public Dictionary<String, DictionaryWordBean> getHandler() {
+		return (Dictionary) AbstractMain.getBean("Dictionary");
 	}
 	
 	public BindDictionaryData getBinder() {
