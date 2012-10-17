@@ -1,5 +1,9 @@
 package aufgabe1.dictionary;
 
+import java.util.List;
+
+import aufgabe1.dictionary.Dictionary.Element;
+
 /**
  * HashDictionary enthält als Implementierung eine wie in der Vorlesung besprochene
  * Hashtabelle mit linear verketteten Listen.
@@ -20,6 +24,12 @@ public class HashDictionary<K, V> implements Dictionary<K, V> {
 
 	@Override
 	public V remove(K key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Element<K, V>> getEntries() {
 		// TODO Auto-generated method stub
 		return null;
 	}

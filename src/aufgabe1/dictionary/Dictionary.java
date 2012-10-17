@@ -3,7 +3,19 @@
 
 package aufgabe1.dictionary;
 
+import java.util.List;
+
 public interface Dictionary<K,V> {
+	
+	public static class Element<K, V>  {
+		K key;
+		V value;
+		public Element(K key, V value) {
+			this.key = key;
+			this.value = value;
+		}
+	}
+	
     V insert(K key, V value);
     // Associates the specified value with the specified key in this map.
     // If the map previously contained a mapping for the key,
@@ -19,4 +31,6 @@ public interface Dictionary<K,V> {
     // Removes the key-vaue-pair associated with the key.
     // Returns the value to which the key was previously associated,
     // or null if the key is not contained in the dictionary.
+    
+    List<Element<K, V>> getEntries();
 }

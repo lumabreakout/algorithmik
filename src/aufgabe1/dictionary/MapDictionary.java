@@ -1,8 +1,11 @@
 package aufgabe1.dictionary;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import aufgabe1.dictionary.Dictionary.Element;
 
 /**
  * MapDictionary benutzt ein Map-Objekt aus den Java-Collections. Das Map-Objekt wird dem
@@ -49,6 +52,12 @@ public class MapDictionary<K, V> implements Dictionary<K, V> {
 		dict.insert("b", 789);
 		System.out.println(dict.search("c"));
 		System.out.println(dict.toString());
+	}
+
+	@Override
+	public List<Element<K, V>> getEntries() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

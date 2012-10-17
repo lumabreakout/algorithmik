@@ -1,5 +1,8 @@
 package aufgabe1.dictionary;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * SortedArrayDictionary implementiert ein Dictionary mit einem Feld, in dem die DatensÃ¤tze
  * lÃ¼ckenlos und sortiert gespeichert werden. FÃ¼r die Suche wird binÃ¤re Suche eingesetzt.
@@ -13,16 +16,6 @@ public class SortedArrayDictionary<K extends Comparable<? super K>, V> implement
 	private Element<K,V>[] data = new Element[INITIAL_CAPACITY];
 	private int length;
 
-	private static class Element<K, V>  {
-		K key;
-		V value;
-		public Element(K key, V value) {
-			this.key = key;
-			this.value = value;
-		}
-	}
-	
-	
 	public static void main(String[] args) {
 		SortedArrayDictionary<String, Integer> dict = new SortedArrayDictionary<String, Integer>();
 		dict.insert("a", 123);
@@ -133,6 +126,16 @@ public class SortedArrayDictionary<K extends Comparable<? super K>, V> implement
 		}
 		sb.append("}");
 		return sb.toString();
+	}
+
+
+	@Override
+	public List<Element<K, V>> getEntries() {
+		List<Element<K, V>> ret = new ArrayList<Element<K, V>>(this.length);
+		for (int i = 0; i < this.length; ++i) {
+			ret.add(data[i]);
+		}
+		return ret;
 	}
 
 }
