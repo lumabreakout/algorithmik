@@ -3,6 +3,8 @@ package aufgabe1.gui.tables;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
@@ -73,7 +75,17 @@ public class TblDictionaryList extends JTable {
 			DictionaryWordBean searchBean = new DictionaryWordBean();
 			searchBean = getBinder().
 				writeBean(getDetailEntry(), searchBean);			
-			getHandler().search(searchBean.getGerman());					
+			
+			List<DictionaryWordBean> list = new LinkedList<>();
+			list.add(getHandler().search(searchBean.getGerman()));			
+			if (list.size() <= 0) {
+				JOptionPane.showMessageDialog(frmMainWindow,
+						"Für dieses Wort wurde kein Eintrag gefunden");
+				return;
+			}
+			
+			getTableModel().setDataToModel(list);		
+			getBinder().readBean(getDetailEntry(), list.get(0));
 		}
 	}
 	

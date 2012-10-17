@@ -95,19 +95,19 @@ public class FrmMainWindowDictionary extends JFrame {
 				IChoiseableMenu mnu = (IChoiseableMenu) e.getSource();
 				if (mnu.getHasCoise() == ChoiseImpl.HASH_IMPL) {
 					setTitle("Wörterbuch via Hash Directory");
-					impl = mnu.getHasCoise();
+					//
 							
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_IMPL) {
 					setTitle("Wörterbuch via Map Directory");
-					impl = mnu.getHasCoise();
+					
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.SORTED_ARRAY_IMPL) {
 					setTitle("Wörterbuch via Sorted Array Directory");
-					impl = mnu.getHasCoise();
+					
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
 					setTitle("Wörterbuch via Tree Directory");
-					impl = mnu.getHasCoise();
+					
 				}
 			}
 		}
@@ -120,9 +120,7 @@ public class FrmMainWindowDictionary extends JFrame {
 	protected ChooseImplAction chooseAction;
 	
 	protected MnuDictionary mnuDictionary;
-	
-	private ChoiseImpl impl;
-	
+
 	protected JScrollPane bpaTable;	
 	private TblDictionaryList tblDictionary;
 	
@@ -201,8 +199,5 @@ public class FrmMainWindowDictionary extends JFrame {
   	   return chooseAction;
      }
 
-	public ChoiseImpl getImpl() {
-		return impl;
-	}
 	
 }

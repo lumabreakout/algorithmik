@@ -25,7 +25,8 @@ public class DictionaryTableModel extends AbstractTableModel {
 	}	
 	
 	public void setDataToModel(List<DictionaryWordBean> data) {
-		this.data = data;		
+		this.data = data;	
+		fireTableDataChanged();
 	}
 	
 	@Override
