@@ -1,4 +1,4 @@
-package aufgabe1.data.collection;
+package aufgabe1.collection;
 
 import java.util.TreeMap;
 
