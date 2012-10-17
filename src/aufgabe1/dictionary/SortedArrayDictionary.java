@@ -22,11 +22,13 @@ public class SortedArrayDictionary<K extends Comparable<? super K>, V> implement
 		}
 	}
 	
+	
 	public static void main(String[] args) {
 		SortedArrayDictionary<String, Integer> dict = new SortedArrayDictionary<String, Integer>();
 		dict.insert("a", 123);
 		dict.insert("c", 456);
 		dict.insert("b", 789);
+		System.out.println(dict.getKeyIndex("c"));
 		System.out.println(dict.toString());
 	}
 	
@@ -84,10 +86,11 @@ public class SortedArrayDictionary<K extends Comparable<? super K>, V> implement
 	 * @return Array index of the key or -1 in case the key does not exist. 
 	 */
 	private int getKeyIndex(K key) {
+		// binary search as usual...
 		int li = 0;
 		int re = this.length - 1;
 		int m = -1;
-		while (li < re) {
+		while (li <= re) {
 			m = (li + re) / 2;
 			if (key.compareTo(data[m].key) < 0) {
 				re = m - 1;
@@ -102,8 +105,23 @@ public class SortedArrayDictionary<K extends Comparable<? super K>, V> implement
 
 	@Override
 	public V remove(K key) {
-		// TODO Auto-generated method stub
-		return null;
+		// search for key
+		int index = getKeyIndex(key);
+		V retval = data[index].value;
+		
+		if (index == -1) 
+			return null;
+		
+		// delete key and fill the gap
+		int i;
+		for (i = index; i < length - 1; i++) {
+			data[i] = data[i +1];
+		}
+		
+		data[i + 1] = null;
+		this.length--;
+		
+		return retval;
 	}
 	
 	@Override
