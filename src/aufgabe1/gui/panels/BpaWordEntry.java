@@ -1,10 +1,8 @@
 package aufgabe1.gui.panels;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,47 +11,76 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import aufgabe1.dictionary.DictionaryWordBean;
+import aufgabe1.gui.FrmMainWindowDictionary;
+import aufgabe1.gui.tables.TblDictionaryList;
+
 public class BpaWordEntry extends JPanel {
 	
+	public final static int READ =  0;
+	public final static int NEW = 1;
+	public final static int UPDATE = 2;
+	
 	private JPanel bpaDefault;
+	private JPanel de;
 	private JLabel lblGermanWord;
 	private JTextField tfiGermanWord;
+	private JPanel en;
 	private JLabel lblEnglishWord;
 	private JTextField tfiEnglishWord;
 	
 	private JPanel bpaButtons;
-	private JButton btnOk;
-	private JButton btnClose;
+	private JButton btnNew;
+	private JButton btnDelete;
+	private JButton btnSearch;
 	
-	private JDialog dialog;
+	private JDialog dialog;	
+	private DictionaryWordBean wrkBean;
 	
-	public BpaWordEntry() {
+	private TblDictionaryList table;
+	private FrmMainWindowDictionary mainWindow;
+	
+	public BpaWordEntry(TblDictionaryList table, FrmMainWindowDictionary mainWindow) {
 		super();		
+		this.table = table;
+		this.mainWindow = mainWindow;
 		
 		initialize();
 	}
 	
 	private void initialize() {
-		this.setPreferredSize(new Dimension(750, 80));
-		this.setBorder(BorderFactory.createTitledBorder("WÃ¶rterbuch Eintrag"));
-		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-    	this.add(getBpaDefault());
-    	this.add(getBpaButtons());
+		this.setPreferredSize(new Dimension(750, 150));
+		this.setBorder(BorderFactory.createTitledBorder("Wörterbuch Eintrag"));
+		this.setLayout(new BorderLayout());
+    	this.add(getBpaDefault(), BorderLayout.CENTER);
+    	this.add(getBpaButtons(), BorderLayout.SOUTH);
+	}
+	
+	public void changeEditableComponents() {
+		
 	}
 	
 	protected JPanel getBpaDefault() {
 		if (bpaDefault == null) {
 			bpaDefault = new JPanel();		
-			bpaDefault.setLayout(new GridLayout(2, 2));
+			bpaDefault.setLayout(new FlowLayout());
 			bpaDefault.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-			bpaDefault.add(getLblGermanWord());
-			bpaDefault.add(getTfiGermanWord());
-			bpaDefault.add(getLblEnglishWord());
-			bpaDefault.add(getTfiEnglishWord());
+			bpaDefault.add(getBpaDe());
+			bpaDefault.add(getBpaEn());			
 		}
 		return bpaDefault;			
 	}
 
+	protected JPanel getBpaDe() {
+		if (de == null) {
+			de = new JPanel(new FlowLayout());
+			de.setPreferredSize(new Dimension(750, 25));
+			de.add(getLblGermanWord());
+			de.add(getTfiGermanWord());
+		}
+		return de;
+	}
+	
 	private JLabel getLblGermanWord() {
 		if (lblGermanWord == null) {
 			lblGermanWord = new JLabel("Deutsches Word: ");
@@ -63,9 +90,20 @@ public class BpaWordEntry extends JPanel {
 	
 	public JTextField getTfiGermanWord() {
 		if (tfiGermanWord == null) {
-			tfiGermanWord = new JTextField();			
+			tfiGermanWord = new JTextField();		
+			tfiGermanWord.setPreferredSize(new Dimension(200, 20));
 		}
 		return tfiGermanWord;
+	}
+	
+	protected JPanel getBpaEn() {
+		if (en == null) {
+			en = new JPanel(new FlowLayout());
+			en.setPreferredSize(new Dimension(750, 25));
+			en.add(getLblEnglishWord());
+			en.add(getTfiEnglishWord());
+		}
+		return en;
 	}
 	
 	private JLabel getLblEnglishWord() {
@@ -77,7 +115,8 @@ public class BpaWordEntry extends JPanel {
 	
 	public JTextField getTfiEnglishWord() {
 		if (tfiEnglishWord == null) {
-			tfiEnglishWord = new JTextField();			
+			tfiEnglishWord = new JTextField();		
+			tfiEnglishWord.setPreferredSize(new Dimension(200, 20));
 		}
 		return tfiEnglishWord;
 	}
@@ -85,38 +124,54 @@ public class BpaWordEntry extends JPanel {
 	protected JPanel getBpaButtons() {
 		if (bpaButtons == null) {
 			bpaButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-			bpaButtons.setPreferredSize(new Dimension(750, 25));
-			bpaButtons.add(getBtnOk());
-			bpaButtons.add(getBtnClose());
+			bpaButtons.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+			bpaButtons.setPreferredSize(new Dimension(500, 30));
+			bpaButtons.add(getBtnNew());
+			bpaButtons.add(getBtnDelete());
+			bpaButtons.add(getBtnSearch());
 		}
 		return bpaButtons;
 	}
 	
 	
-	public JButton getBtnOk() {
-		if (btnOk == null) {
-			btnOk = new JButton();
-			btnOk.setText("OK");
-			btnOk.setPreferredSize(new Dimension(80, 20));
-			// TODO
+	public JButton getBtnNew() {
+		if (btnNew == null) {
+			btnNew = new JButton();
+			btnNew.setText("Einfügen");
+			btnNew.setPreferredSize(new Dimension(120, 20));
+			btnNew.addActionListener(table.getNewAction());
 		}
-		return btnOk;
+		return btnNew;
 	}
 	
-	public JButton getBtnClose() {
-		if (btnClose == null) {
-			btnClose = new JButton();
-			btnOk.setText("Close");
-			btnOk.setPreferredSize(new Dimension(80, 20));
-			btnOk.addActionListener(new ActionListener() {				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					setVisible(false);										
-				}
-			});
+	public JButton getBtnDelete() {
+		if (btnDelete == null) {
+			btnDelete = new JButton();
+			btnDelete.setText("Löschen");
+			btnDelete.setPreferredSize(new Dimension(120, 20));
+			btnDelete.addActionListener(table.getDeleteAction());
 		}
 
-		return btnClose;
+		return btnDelete;
+	}
+	
+	public JButton getBtnSearch() {
+		if (btnSearch == null) {
+			btnSearch =  new JButton();
+			btnSearch.setText("Suchen");
+			btnSearch.setPreferredSize(new Dimension(120, 20));
+			btnSearch.addActionListener(table.getSearchAction());
+		}
+
+		return btnSearch;
+	}
+	
+	public DictionaryWordBean getWrkBean() {
+		return wrkBean;
+	}
+
+	public void setWrkBean(DictionaryWordBean wrkBean) {
+		this.wrkBean = wrkBean;
 	}
 	
 }

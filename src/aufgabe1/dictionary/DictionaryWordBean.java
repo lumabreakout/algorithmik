@@ -9,6 +9,12 @@ public class DictionaryWordBean {
 		super();
 	}	
 	
+	public DictionaryWordBean(String de, String en) {
+		super();
+		this.english = en;
+		this.german = de;
+	}
+	
 	public String getEnglish() {
 		return english;
 	}

@@ -4,6 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import aufgabe1.dictionary.ChoiseImpl;
 import aufgabe1.gui.FrmMainWindowDictionary;
 
 public class MnuDictionary extends JMenuBar {
@@ -48,7 +49,7 @@ public class MnuDictionary extends JMenuBar {
     
     private JMenuItem getMniSave() {
     	if (mniSave == null) {
-			mniSave = new JMenuItem("TelefonBuch speichern");
+			mniSave = new JMenuItem("Wörterbuch speichern");
 			mniSave.addActionListener(frmMainWindow.getSaveAction());			
 		}
 		return mniSave;
@@ -56,7 +57,7 @@ public class MnuDictionary extends JMenuBar {
     
     private JMenuItem getMniLoad() {
     	if (mniLoad == null) {
-			mniLoad = new JMenuItem("TelefonBuch laden");
+			mniLoad = new JMenuItem("Wörterbuch laden");
 			mniLoad.addActionListener(frmMainWindow.getLoadAction());
 		}
 		return mniLoad;
@@ -96,7 +97,9 @@ public class MnuDictionary extends JMenuBar {
 					return ChoiseImpl.HASH_IMPL;
 				}    			
     		};
-    		mniArrayDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+    		mniHashDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+    		mniHashDictionary.setEnabled(false);
+    		
 		}
 		return mniHashDictionary;
     }
@@ -109,7 +112,8 @@ public class MnuDictionary extends JMenuBar {
 					return ChoiseImpl.TREE_IMPL;
 				}    			
     		};
-    		mniArrayDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+    		mniTreeDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+    		mniTreeDictionary.setEnabled(false);
 		}
 		return mniTreeDictionary;
     }
@@ -122,7 +126,8 @@ public class MnuDictionary extends JMenuBar {
 					return ChoiseImpl.MAP_IMPL;
 				}    			
     		};
-    		mniArrayDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+    		mniMapDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+    		mniMapDictionary.setEnabled(false);
 		}
 		return mniMapDictionary;
     }

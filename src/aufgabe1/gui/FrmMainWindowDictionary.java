@@ -1,5 +1,6 @@
 package aufgabe1.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,13 +8,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
-import aufgabe1.gui.navigation.ChoiseImpl;
+import aufgabe1.dictionary.ChoiseImpl;
 import aufgabe1.gui.navigation.IChoiseableMenu;
 import aufgabe1.gui.navigation.MnuDictionary;
+import aufgabe1.gui.tables.TblDictionaryList;
 
 public class FrmMainWindowDictionary extends JFrame {
 
@@ -87,19 +91,21 @@ public class FrmMainWindowDictionary extends JFrame {
 			if (e.getSource() instanceof IChoiseableMenu) {				
 				IChoiseableMenu mnu = (IChoiseableMenu) e.getSource();
 				if (mnu.getHasCoise() == ChoiseImpl.HASH_IMPL) {
-					//TODO
-					
+					setTitle("Wörterbuch via Hash Directory");
+					impl = mnu.getHasCoise();
+							
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_IMPL) {
-					// TODO
+					setTitle("Wörterbuch via Map Directory");
+					impl = mnu.getHasCoise();
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.SORTED_ARRAY_IMPL) {
-					// TODO
+					setTitle("Wörterbuch via Sorted Array Directory");
+					impl = mnu.getHasCoise();
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
-					// TODO
+					setTitle("Wörterbuch via Tree Directory");
+					impl = mnu.getHasCoise();
 				}
-				
-				// test
 			}
 		}
 		
@@ -112,6 +118,11 @@ public class FrmMainWindowDictionary extends JFrame {
 	
 	protected MnuDictionary mnuDictionary;
 	
+	private ChoiseImpl impl;
+	
+	protected JScrollPane bpaTable;	
+	private TblDictionaryList tblDictionary;
+	
 	/**
 	 * Default Constructor
 	 */
@@ -122,17 +133,34 @@ public class FrmMainWindowDictionary extends JFrame {
     }
     
     protected void initialize() {
-    	this.setTitle("Telefonbuch");
+    	this.setTitle("Wörterbuch");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(getCloseAction());	
-        this.setSize(new Dimension(800, 600));
+        Dimension dim = new Dimension(800, 600);
+        this.setPreferredSize(dim);
+        this.setSize(dim);
         this.pack();       	
     	
     	this.setJMenuBar(getMnuDictionary());
-//
+
 //    	this.add(getBpaHeader(), BorderLayout.NORTH);
-//    	this.add(getBpaTable(), BorderLayout.CENTER);
+    	this.add(getBpaTable(), BorderLayout.CENTER);
         
+    }
+    
+    public JScrollPane getBpaTable() {
+    	if (bpaTable == null) {
+			bpaTable = new JScrollPane(getTblTelefonBuch());
+			bpaTable.setSize(new Dimension(800, 200));	
+		}
+		return bpaTable;
+    }
+    
+    public TblDictionaryList getTblTelefonBuch() {
+    	if (tblDictionary == null) {
+    		tblDictionary = new TblDictionaryList(this);			
+		}
+		return tblDictionary;
     }
     
     public MnuDictionary getMnuDictionary() {
@@ -169,5 +197,9 @@ public class FrmMainWindowDictionary extends JFrame {
   	   }
   	   return chooseAction;
      }
+
+	public ChoiseImpl getImpl() {
+		return impl;
+	}
 	
 }
