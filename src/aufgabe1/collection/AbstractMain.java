@@ -3,6 +3,7 @@ package aufgabe1.collection;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -26,7 +27,7 @@ public class AbstractMain {
 		return false;
 	}
 	
-	public static void readDictionary(File file, Dictionary<String, DictionaryWordBean> container)  {
+	public static boolean readDictionary(File file, Dictionary<String, DictionaryWordBean> container)  {
 		FileInputStream fs;
 		try {
 			fs = new FileInputStream(file);
@@ -40,11 +41,33 @@ public class AbstractMain {
 				container.insert(de, obj);
 			}
 			fs.close();
+			return true;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		} 
+	}
+	
+	public static boolean writeDictionary(File file, Dictionary<String, DictionaryWordBean> container) {
+		FileWriter fw;
+		try {
+			fw = new FileWriter(file, true);
+					
+			for (Dictionary.Element<String, DictionaryWordBean> entry : container.getEntries()) {
+				String writeLine = entry.key + " " + entry.value + " ";
+				fw.write(writeLine);
+			}			
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}		
 	}
 	
 	
