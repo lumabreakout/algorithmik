@@ -36,7 +36,7 @@ public class AbstractMain {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				int firstWordLength = line.indexOf(' ');
-				container.insert(line.substring(0, firstWordLength), line.substring(firstWordLength) + 1);
+				container.insert(line.substring(0, firstWordLength), line.substring(firstWordLength + 1));
 			}
 			fs.close();
 		} catch (FileNotFoundException e) {
