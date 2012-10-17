@@ -1,8 +1,8 @@
 package aufgabe1.dictionary;
 
 /**
- * SortedArrayDictionary implementiert ein Dictionary mit einem Feld, in dem die Datensätze
- * lückenlos und sortiert gespeichert werden. Für die Suche wird binäre Suche eingesetzt.
+ * SortedArrayDictionary implementiert ein Dictionary mit einem Feld, in dem die DatensÃ¤tze
+ * lÃ¼ckenlos und sortiert gespeichert werden. FÃ¼r die Suche wird binÃ¤re Suche eingesetzt.
  */
 public class SortedArrayDictionary<K extends Comparable<? super K>, V> implements Dictionary<K, V> {
 
