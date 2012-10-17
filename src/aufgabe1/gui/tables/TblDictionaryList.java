@@ -33,7 +33,7 @@ public class TblDictionaryList extends JTable {
 			}
 			
 			
-			if (getHandler().search(bean.getGerman()) == null) {
+			if (getHandler().search(bean.getGerman()) != null) {
 				JOptionPane.showMessageDialog(frmMainWindow,
 						"Fehler beim Speichern. Die Telefonnummer existiert bereits");
 			} else {
@@ -74,18 +74,19 @@ public class TblDictionaryList extends JTable {
 		public void actionPerformed(ActionEvent e) {
 			DictionaryWordBean searchBean = new DictionaryWordBean();
 			searchBean = getBinder().
-				writeBean(getDetailEntry(), searchBean);			
+				writeBean(getDetailEntry(), searchBean);						
 			
-			List<DictionaryWordBean> list = new LinkedList<>();
-			list.add(getHandler().search(searchBean.getGerman()));			
-			if (list.size() <= 0) {
+			DictionaryWordBean resultBean = getHandler().search(searchBean.getGerman());			
+			if (resultBean == null) {
 				JOptionPane.showMessageDialog(frmMainWindow,
 						"Für dieses Wort wurde kein Eintrag gefunden");
 				return;
 			}
 			
+			List<DictionaryWordBean> list = new LinkedList<>();
+			list.add(resultBean);
 			getTableModel().setDataToModel(list);		
-			getBinder().readBean(getDetailEntry(), list.get(0));
+			getBinder().readBean(getDetailEntry(), resultBean);
 		}
 	}
 	
