@@ -109,7 +109,7 @@ public class SortedArrayDictionary<K extends Comparable<? super K>, V> implement
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Dictionary = {\n");
+		sb.append(String.format("SortedArrayDictionary (len:%d)\n{\n", this.length));
 		for (int i = 0; i < this.length; i++) {
 			sb.append(String.format("\t'%s' => '%s'\n", data[i].key.toString(), data[i].value.toString()));
 		}
