@@ -98,6 +98,8 @@ public class FrmMainWindowDictionary extends JFrame {
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
 					// TODO
 				}
+				
+				// test
 			}
 		}
 		
