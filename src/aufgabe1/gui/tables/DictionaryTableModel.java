@@ -1,30 +1,28 @@
 package aufgabe1.gui.tables;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import aufgabe1.dictionary.DictionaryWordBean;
+import aufgabe1.dictionary.Dictionary;
 
 public class DictionaryTableModel extends AbstractTableModel {
 
 	public static final int GERMAN_WORD = 0;
 	public static final int ENGLISH_WORD = 1;
 	
-	private List<DictionaryWordBean> data;
+	private List<Dictionary.Element<String, String>> data;
 	private String[] columnNames;
 	
 	public DictionaryTableModel() {
 		super();
 		
 		// testing
-		List<DictionaryWordBean> list = new LinkedList<DictionaryWordBean>();
-		list.add(new DictionaryWordBean("deutsch", "englisch"));
-		setDataToModel(list);
+//		List<Dictionary.Element<String, String>> list = new LinkedList<Dictionary.Element<String, String>>();
+//		setDataToModel(list);
 	}	
 	
-	public void setDataToModel(List<DictionaryWordBean> data) {
+	public void setDataToModel(List<Dictionary.Element<String, String>> data) {
 		this.data = data;	
 		fireTableDataChanged();
 	}
@@ -48,19 +46,19 @@ public class DictionaryTableModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		DictionaryWordBean dataBean = data.get(rowIndex);
+		Dictionary.Element<String, String> dataBean = data.get(rowIndex);
 		
 		switch (columnIndex) {
 		case GERMAN_WORD:
-			return dataBean.getGerman();			
+			return dataBean.key;			
 		case ENGLISH_WORD:
-			return dataBean.getEnglish();	
+			return dataBean.value;	
 		default:
 			return "";
 		}
 	}
 	
-	public DictionaryWordBean getValueAtRowIndex(int rowIndex) {
+	public Dictionary.Element<String, String> getValueAtRowIndex(int rowIndex) {
 		if (rowIndex >= 0 && rowIndex < data.size()) {
 			return data.get(rowIndex);
 		} 

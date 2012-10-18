@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import aufgabe1.collection.AbstractMain;
 import aufgabe1.dictionary.ChoiseImpl;
 import aufgabe1.dictionary.Dictionary;
-import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.gui.navigation.IChoiseableMenu;
 import aufgabe1.gui.navigation.MnuDictionary;
 import aufgabe1.gui.tables.TblDictionaryList;
@@ -78,7 +77,7 @@ public class FrmMainWindowDictionary extends JFrame {
 			int res = fileChooser.showOpenDialog(FrmMainWindowDictionary.this);
 			if (res == JFileChooser.APPROVE_OPTION) {
 	            File file = fileChooser.getSelectedFile();
-	            AbstractMain.readDictionary(file, (Dictionary<String, DictionaryWordBean>) 
+	            AbstractMain.readDictionary(file, (Dictionary<String, String>) 
 	            		AbstractMain.getBean("Dictionary"));
 	            
 	            getTblTelefonBuch().refreshList();
@@ -94,19 +93,19 @@ public class FrmMainWindowDictionary extends JFrame {
 			if (e.getSource() instanceof IChoiseableMenu) {				
 				IChoiseableMenu mnu = (IChoiseableMenu) e.getSource();
 				if (mnu.getHasCoise() == ChoiseImpl.HASH_IMPL) {
-					setTitle("Wörterbuch via Hash Directory");
+					setTitle("Wï¿½rterbuch via Hash Directory");
 					//
 							
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_IMPL) {
-					setTitle("Wörterbuch via Map Directory");
+					setTitle("Wï¿½rterbuch via Map Directory");
 					
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.SORTED_ARRAY_IMPL) {
-					setTitle("Wörterbuch via Sorted Array Directory");
+					setTitle("Wï¿½rterbuch via Sorted Array Directory");
 					
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
-					setTitle("Wörterbuch via Tree Directory");
+					setTitle("Wï¿½rterbuch via Tree Directory");
 					
 				}
 			}
@@ -134,7 +133,7 @@ public class FrmMainWindowDictionary extends JFrame {
     }
     
     protected void initialize() {
-    	this.setTitle("Wörterbuch");
+    	this.setTitle("Wï¿½rterbuch");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(getCloseAction());	
         Dimension dim = new Dimension(800, 600);

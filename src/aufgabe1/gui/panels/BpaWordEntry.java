@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.gui.FrmMainWindowDictionary;
 import aufgabe1.gui.tables.TblDictionaryList;
 
@@ -35,7 +34,7 @@ public class BpaWordEntry extends JPanel {
 	private JButton btnSearch;
 	
 	private JDialog dialog;	
-	private DictionaryWordBean wrkBean;
+	private String wrkBean;
 	
 	private TblDictionaryList table;
 	private FrmMainWindowDictionary mainWindow;
@@ -50,7 +49,7 @@ public class BpaWordEntry extends JPanel {
 	
 	private void initialize() {
 		this.setPreferredSize(new Dimension(750, 150));
-		this.setBorder(BorderFactory.createTitledBorder("Wörterbuch Eintrag"));
+		this.setBorder(BorderFactory.createTitledBorder("Wï¿½rterbuch Eintrag"));
 		this.setLayout(new BorderLayout());
     	this.add(getBpaDefault(), BorderLayout.CENTER);
     	this.add(getBpaButtons(), BorderLayout.SOUTH);
@@ -137,7 +136,7 @@ public class BpaWordEntry extends JPanel {
 	public JButton getBtnNew() {
 		if (btnNew == null) {
 			btnNew = new JButton();
-			btnNew.setText("Einfügen");
+			btnNew.setText("Einfï¿½gen");
 			btnNew.setPreferredSize(new Dimension(120, 20));
 			btnNew.addActionListener(table.getNewAction());
 		}
@@ -147,7 +146,7 @@ public class BpaWordEntry extends JPanel {
 	public JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Löschen");
+			btnDelete.setText("Lï¿½schen");
 			btnDelete.setPreferredSize(new Dimension(120, 20));
 			btnDelete.addActionListener(table.getDeleteAction());
 		}
@@ -166,11 +165,11 @@ public class BpaWordEntry extends JPanel {
 		return btnSearch;
 	}
 	
-	public DictionaryWordBean getWrkBean() {
+	public String getWrkBean() {
 		return wrkBean;
 	}
 
-	public void setWrkBean(DictionaryWordBean wrkBean) {
+	public void setWrkBean(String wrkBean) {
 		this.wrkBean = wrkBean;
 	}
 	

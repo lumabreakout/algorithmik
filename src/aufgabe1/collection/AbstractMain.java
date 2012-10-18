@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import aufgabe1.dictionary.Dictionary;
-import aufgabe1.dictionary.DictionaryWordBean;
 
 public class AbstractMain {
 
@@ -27,7 +26,7 @@ public class AbstractMain {
 		return false;
 	}
 	
-	public static boolean readDictionary(File file, Dictionary<String, DictionaryWordBean> container)  {
+	public static boolean readDictionary(File file, Dictionary<String, String> container)  {
 		FileInputStream fs;
 		try {
 			fs = new FileInputStream(file);
@@ -36,9 +35,8 @@ public class AbstractMain {
 				String line = scanner.nextLine();
 				int firstWordLength = line.indexOf(' ');
 				String de = line.substring(0, firstWordLength);
-				String en = line.substring(firstWordLength + 1);
-				DictionaryWordBean obj = new DictionaryWordBean(de, en);
-				container.insert(de, obj);
+				String en = line.substring(firstWordLength + 1);				
+				container.insert(de, en);
 			}
 			fs.close();
 			return true;
@@ -51,12 +49,12 @@ public class AbstractMain {
 		} 
 	}
 	
-	public static boolean writeDictionary(File file, Dictionary<String, DictionaryWordBean> container) {
+	public static boolean writeDictionary(File file, Dictionary<String, String> container) {
 		FileWriter fw;
 		try {
 			fw = new FileWriter(file, true);
 					
-			for (Dictionary.Element<String, DictionaryWordBean> entry : container.getEntries()) {
+			for (Dictionary.Element<String, String> entry : container.getEntries()) {
 				String writeLine = entry.key + " " + entry.value + " ";
 				fw.write(writeLine);
 			}			

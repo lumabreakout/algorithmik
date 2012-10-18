@@ -2,7 +2,6 @@ package aufgabe1.gui.binder;
 
 import aufgabe1.collection.AbstractMain;
 import aufgabe1.dictionary.Dictionary;
-import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.gui.panels.BpaWordEntry;
 import aufgabe1.gui.tables.TblDictionaryList;
 
@@ -14,25 +13,24 @@ public class BindDictionaryData {
 		this.table = table;
 	}
 
-	
+	@SuppressWarnings({ "unchecked", "static-access" })
 	public void refreshList() {
-		Dictionary<String, DictionaryWordBean> dict = (Dictionary<String, DictionaryWordBean>)
-					AbstractMain.getBean("Dictionary");
-			
 		
+		Dictionary<String, String> dict = (Dictionary<String, String>)
+					AbstractMain.getBean("Dictionary");		
 		
-//		table.getTableModel().setDataToModel(list);
+		table.getTableModel().setDataToModel(dict.getEntries());
 	}
 	
-	public void readBean(BpaWordEntry detail, DictionaryWordBean bean) {
-		detail.getTfiEnglishWord().setText(bean.getEnglish());
-		detail.getTfiGermanWord().setText(bean.getGerman());
+	public void readBean(BpaWordEntry detail, Dictionary.Element<String, String> bean) {
+		detail.getTfiEnglishWord().setText(bean.value);
+		detail.getTfiGermanWord().setText(bean.key);
 	}
 	
 	
-	public DictionaryWordBean writeBean(BpaWordEntry detail, DictionaryWordBean bean) {
-		bean.setEnglish(detail.getTfiEnglishWord().getText());
-		bean.setGerman(detail.getTfiGermanWord().getText());
+	public Dictionary.Element<String, String> writeBean(BpaWordEntry detail, Dictionary.Element<String, String> bean) {
+		bean.value = detail.getTfiEnglishWord().getText();
+		bean.key = detail.getTfiGermanWord().getText();
 		return bean;
 	}
 	

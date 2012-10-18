@@ -14,7 +14,6 @@ import javax.swing.event.ListSelectionListener;
 
 import aufgabe1.collection.AbstractMain;
 import aufgabe1.dictionary.Dictionary;
-import aufgabe1.dictionary.DictionaryWordBean;
 import aufgabe1.gui.FrmMainWindowDictionary;
 import aufgabe1.gui.binder.BindDictionaryData;
 import aufgabe1.gui.panels.BpaWordEntry;
@@ -24,20 +23,20 @@ public class TblDictionaryList extends JTable {
 	private class NewAction implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			DictionaryWordBean bean = new DictionaryWordBean();
+			Dictionary.Element<String, String> bean = new Dictionary.Element<String, String>();
 			bean = getBinder().writeBean(getDetailEntry(), bean);
-			if (bean.getEnglish().trim().equals("") || bean.getGerman().trim().equals("")) {
+			if (bean.value.trim().equals("") || bean.key.trim().equals("")) {
 				JOptionPane.showMessageDialog(frmMainWindow,
 						"Fehler beim Speichern. Nicht alle Argumente angegeben");
 				return;
 			}
 			
 			
-			if (getHandler().search(bean.getGerman()) != null) {
+			if (getHandler().search(bean.key) != null) {
 				JOptionPane.showMessageDialog(frmMainWindow,
 						"Fehler beim Speichern. Die Telefonnummer existiert bereits");
 			} else {
-				getHandler().insert(bean.getGerman(), bean);
+				getHandler().insert(bean.key, bean.value);
 				setChanged(true);
 				refreshList();
 			}
@@ -49,19 +48,19 @@ public class TblDictionaryList extends JTable {
 		public void actionPerformed(ActionEvent e) {
 			int res = JOptionPane.showConfirmDialog(
 					frmMainWindow,
-					"Wollen Sie wirklich löschen?",
+					"Wollen Sie wirklich lï¿½schen?",
 					"Speichern",
 					JOptionPane.YES_NO_OPTION
 					);
 			if (res == JOptionPane.YES_OPTION) {
-				DictionaryWordBean bean = new DictionaryWordBean();
+				Dictionary.Element<String, String> bean = new Dictionary.Element<String, String>();
 				bean = getBinder().writeBean(getDetailEntry(), bean);
 								
-				if (getHandler().search(bean.getGerman()) == null) {
+				if (getHandler().search(bean.key) == null) {
 					JOptionPane.showMessageDialog(frmMainWindow,
-					"Fehler beim löschen. Schlüssel existiert nicht");
+					"Fehler beim lï¿½schen. Schlï¿½ssel existiert nicht");
 				} else {
-					getHandler().remove(bean.getGerman());
+					getHandler().remove(bean.key);
 					setChanged(true);
 					refreshList();
 				}
@@ -72,21 +71,20 @@ public class TblDictionaryList extends JTable {
 	private class SearchAction implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			DictionaryWordBean searchBean = new DictionaryWordBean();
-			searchBean = getBinder().
-				writeBean(getDetailEntry(), searchBean);						
+			Dictionary.Element<String, String> searchBean = new Dictionary.Element<String, String>();
+			searchBean = getBinder().writeBean(getDetailEntry(), searchBean);						
 			
-			DictionaryWordBean resultBean = getHandler().search(searchBean.getGerman());			
-			if (resultBean == null) {
+			searchBean.value = getHandler().search(searchBean.key);			
+			if (searchBean.value == null) {
 				JOptionPane.showMessageDialog(frmMainWindow,
-						"Für dieses Wort wurde kein Eintrag gefunden");
+						"FÃ¼r dieses Wort wurde kein Eintrag gefunden");
 				return;
 			}
 			
-			List<DictionaryWordBean> list = new LinkedList<>();
-			list.add(resultBean);
+			List<Dictionary.Element<String, String>> list = new LinkedList<Dictionary.Element<String, String>>();
+			list.add(searchBean);
 			getTableModel().setDataToModel(list);		
-			getBinder().readBean(getDetailEntry(), resultBean);
+			getBinder().readBean(getDetailEntry(), searchBean);
 		}
 	}
 	
@@ -126,7 +124,7 @@ public class TblDictionaryList extends JTable {
 				if (e.getSource() instanceof DefaultListSelectionModel) {
 					DefaultListSelectionModel model = (DefaultListSelectionModel) e.getSource();
 				
-					DictionaryWordBean bean = getTableModel().getValueAtRowIndex(model.getAnchorSelectionIndex());
+					Dictionary.Element<String, String> bean = getTableModel().getValueAtRowIndex(model.getAnchorSelectionIndex());
 					getBinder().readBean(getDetailEntry(), bean);		 
 				}
 			}
@@ -186,7 +184,7 @@ public class TblDictionaryList extends JTable {
 	}
 	
 	
-	public Dictionary<String, DictionaryWordBean> getHandler() {
+	public Dictionary<String, String> getHandler() {
 		return (Dictionary) AbstractMain.getBean("Dictionary");
 	}
 	

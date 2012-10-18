@@ -10,7 +10,13 @@ public interface Dictionary<K,V> {
 	public static class Element<K, V>  {
 		public K key;
 		public V value;
+		
+		public Element() {
+			super();
+		}
+		
 		public Element(K key, V value) {
+			super();
 			this.key = key;
 			this.value = value;
 		}
