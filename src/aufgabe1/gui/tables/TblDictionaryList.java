@@ -34,7 +34,7 @@ public class TblDictionaryList extends JTable {
 			
 			if (getHandler().search(bean.key) != null) {
 				JOptionPane.showMessageDialog(frmMainWindow,
-						"Fehler beim Speichern. Die Telefonnummer existiert bereits");
+						"Fehler beim Speichern. Das Wort existiert bereits");
 			} else {
 				getHandler().insert(bean.key, bean.value);
 				setChanged(true);
@@ -48,7 +48,7 @@ public class TblDictionaryList extends JTable {
 		public void actionPerformed(ActionEvent e) {
 			int res = JOptionPane.showConfirmDialog(
 					frmMainWindow,
-					"Wollen Sie wirklich l�schen?",
+					"Wollen Sie wirklich löschen?",
 					"Speichern",
 					JOptionPane.YES_NO_OPTION
 					);
@@ -58,7 +58,7 @@ public class TblDictionaryList extends JTable {
 								
 				if (getHandler().search(bean.key) == null) {
 					JOptionPane.showMessageDialog(frmMainWindow,
-					"Fehler beim l�schen. Schl�ssel existiert nicht");
+					"Fehler beim löschen. Schlüssel existiert nicht");
 				} else {
 					getHandler().remove(bean.key);
 					setChanged(true);

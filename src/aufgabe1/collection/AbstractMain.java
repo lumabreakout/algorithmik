@@ -26,18 +26,42 @@ public class AbstractMain {
 		return false;
 	}
 	
-	public static boolean readDictionary(File file, Dictionary<String, String> container)  {
+	public static void scannInput(Scanner scanner, Dictionary<String, String> container)  {
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			int firstWordLength = line.indexOf(' ');
+			String de = line.substring(0, firstWordLength);
+			String en = line.substring(firstWordLength + 1);				
+			container.insert(de, en);
+		}
+	}
+	
+	public static boolean readFileToStringBuilder(File file, StringBuilder stBuilder) {
 		FileInputStream fs;
 		try {
 			fs = new FileInputStream(file);
 			Scanner scanner = new Scanner(fs);
 			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				int firstWordLength = line.indexOf(' ');
-				String de = line.substring(0, firstWordLength);
-				String en = line.substring(firstWordLength + 1);				
-				container.insert(de, en);
+				stBuilder.append(scanner.nextLine());
+				stBuilder.append("\n");
 			}
+			fs.close();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} 
+	}
+	
+	public static boolean readDictionary(File file, Dictionary<String, String> container)  {
+		FileInputStream fs;
+		try {
+			fs = new FileInputStream(file);
+			Scanner scanner = new Scanner(fs);
+			scannInput(scanner, container);
 			fs.close();
 			return true;
 		} catch (FileNotFoundException e) {
@@ -52,10 +76,10 @@ public class AbstractMain {
 	public static boolean writeDictionary(File file, Dictionary<String, String> container) {
 		FileWriter fw;
 		try {
-			fw = new FileWriter(file, true);
+			fw = new FileWriter(file, false);
 					
 			for (Dictionary.Element<String, String> entry : container.getEntries()) {
-				String writeLine = entry.key + " " + entry.value + " ";
+				String writeLine = entry.key + " " + entry.value + "\n";
 				fw.write(writeLine);
 			}			
 			return true;

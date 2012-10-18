@@ -49,7 +49,7 @@ public class BpaWordEntry extends JPanel {
 	
 	private void initialize() {
 		this.setPreferredSize(new Dimension(750, 150));
-		this.setBorder(BorderFactory.createTitledBorder("W�rterbuch Eintrag"));
+		this.setBorder(BorderFactory.createTitledBorder("Wörterbuch Eintrag"));
 		this.setLayout(new BorderLayout());
     	this.add(getBpaDefault(), BorderLayout.CENTER);
     	this.add(getBpaButtons(), BorderLayout.SOUTH);
@@ -136,7 +136,7 @@ public class BpaWordEntry extends JPanel {
 	public JButton getBtnNew() {
 		if (btnNew == null) {
 			btnNew = new JButton();
-			btnNew.setText("Einf�gen");
+			btnNew.setText("Einfügen");
 			btnNew.setPreferredSize(new Dimension(120, 20));
 			btnNew.addActionListener(table.getNewAction());
 		}
@@ -146,7 +146,7 @@ public class BpaWordEntry extends JPanel {
 	public JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("L�schen");
+			btnDelete.setText("Löschen");
 			btnDelete.setPreferredSize(new Dimension(120, 20));
 			btnDelete.addActionListener(table.getDeleteAction());
 		}

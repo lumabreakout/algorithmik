@@ -59,7 +59,8 @@ public class FrmMainWindowDictionary extends JFrame {
 			int res = fileChooser.showSaveDialog(FrmMainWindowDictionary.this);
 			if (res == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
-//				getTelHanlder().save(file);
+				AbstractMain.writeDictionary(file, (Dictionary<String, String>) 
+						AbstractMain.getBean("Dictionary"));
 			}
 		}		
 	}
@@ -93,19 +94,19 @@ public class FrmMainWindowDictionary extends JFrame {
 			if (e.getSource() instanceof IChoiseableMenu) {				
 				IChoiseableMenu mnu = (IChoiseableMenu) e.getSource();
 				if (mnu.getHasCoise() == ChoiseImpl.HASH_IMPL) {
-					setTitle("Wï¿½rterbuch via Hash Directory");
+					setTitle("Wörterbuch via Hash Directory");
 					//
 							
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_IMPL) {
-					setTitle("Wï¿½rterbuch via Map Directory");
+					setTitle("Wörterbuch via Map Directory");
 					
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.SORTED_ARRAY_IMPL) {
-					setTitle("Wï¿½rterbuch via Sorted Array Directory");
+					setTitle("Wörterbuch via Sorted Array Directory");
 					
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
-					setTitle("Wï¿½rterbuch via Tree Directory");
+					setTitle("Wörterbuch via Tree Directory");
 					
 				}
 			}
@@ -133,7 +134,7 @@ public class FrmMainWindowDictionary extends JFrame {
     }
     
     protected void initialize() {
-    	this.setTitle("Wï¿½rterbuch");
+    	this.setTitle("Wörterbuch");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(getCloseAction());	
         Dimension dim = new Dimension(800, 600);
