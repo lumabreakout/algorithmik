@@ -1,5 +1,6 @@
 package aufgabe1.dictionary;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,8 +57,11 @@ public class MapDictionary<K, V> implements Dictionary<K, V> {
 
 	@Override
 	public List<Element<K, V>> getEntries() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Element<K, V>> ret = new ArrayList<Element<K, V>>(baseContainer.size());
+		for (Map.Entry<K, V> entry : baseContainer.entrySet()) {
+			ret.add(new Dictionary.Element<K, V>(entry.getKey(), entry.getValue()));
+		}
+		return ret;
 	}
 
 }

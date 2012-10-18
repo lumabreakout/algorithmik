@@ -1,5 +1,6 @@
 package aufgabe1.dictionary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aufgabe1.dictionary.Dictionary.Element;
@@ -30,7 +31,7 @@ public class TreeDictionary<K, V> implements Dictionary<K, V> {
 	@Override
 	public List<Element<K, V>> getEntries() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Element<K, V>>(0);
 	}
 
 }
