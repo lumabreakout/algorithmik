@@ -49,7 +49,7 @@ public class MnuDictionary extends JMenuBar {
     
     private JMenuItem getMniSave() {
     	if (mniSave == null) {
-			mniSave = new JMenuItem("Wörterbuch speichern");
+			mniSave = new JMenuItem("WÃ¶rterbuch speichern");
 			mniSave.addActionListener(frmMainWindow.getSaveAction());			
 		}
 		return mniSave;
@@ -57,7 +57,7 @@ public class MnuDictionary extends JMenuBar {
     
     private JMenuItem getMniLoad() {
     	if (mniLoad == null) {
-			mniLoad = new JMenuItem("Wörterbuch laden");
+			mniLoad = new JMenuItem("WÃ¶rterbuch laden");
 			mniLoad.addActionListener(frmMainWindow.getLoadAction());
 		}
 		return mniLoad;
@@ -123,7 +123,7 @@ public class MnuDictionary extends JMenuBar {
     		mniMapDictionary = new AbstractChoiseableMenuItem("MapDictionary") {
 				@Override
 				public ChoiseImpl getHasCoise() {
-					return ChoiseImpl.MAP_IMPL;
+					return ChoiseImpl.MAP_HASHMAP_IMPL;
 				}    			
     		};
     		mniMapDictionary.addActionListener(frmMainWindow.getChooseImplAction());

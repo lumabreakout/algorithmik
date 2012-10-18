@@ -26,7 +26,10 @@ public class AbstractMain {
 		return false;
 	}
 	
-	public static void scannInput(Scanner scanner, Dictionary<String, String> container)  {
+	/**
+	 * Insert every entry that the pre-initialized scanner offers to the given dictionary.
+	 */
+	public static void scanInput(Scanner scanner, Dictionary<String, String> container)  {
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
 			int firstWordLength = line.indexOf(' ');
@@ -45,6 +48,7 @@ public class AbstractMain {
 				stBuilder.append(scanner.nextLine());
 				stBuilder.append("\n");
 			}
+			scanner.close();
 			fs.close();
 			return true;
 		} catch (FileNotFoundException e) {
@@ -56,12 +60,15 @@ public class AbstractMain {
 		} 
 	}
 	
+	/**
+	 * Insert every entry that the given dictionary file to the container. 
+	 */
 	public static boolean readDictionary(File file, Dictionary<String, String> container)  {
 		FileInputStream fs;
 		try {
 			fs = new FileInputStream(file);
 			Scanner scanner = new Scanner(fs);
-			scannInput(scanner, container);
+			scanInput(scanner, container);
 			fs.close();
 			return true;
 		} catch (FileNotFoundException e) {
