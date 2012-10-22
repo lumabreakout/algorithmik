@@ -98,7 +98,7 @@ public class DictionaryPerfTest {
 		runtime = runtime / testingCount;
 		System.out.printf("average full-search (existing elements) time: %.1f msec%n", runtime);
 		
-		// -----------------------------  Perform successfull-search test --------------------------------
+		// -----------------------------  Perform non-successfull-search test --------------------------------
 
 		// dict and entries created in the last tests are used again at this point.
 		

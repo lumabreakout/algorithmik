@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -16,6 +18,8 @@ import javax.swing.JScrollPane;
 import aufgabe1.collection.AbstractMain;
 import aufgabe1.dictionary.ChoiseImpl;
 import aufgabe1.dictionary.Dictionary;
+import aufgabe1.dictionary.MapDictionary;
+import aufgabe1.dictionary.SortedArrayDictionary;
 import aufgabe1.gui.navigation.IChoiseableMenu;
 import aufgabe1.gui.navigation.MnuDictionary;
 import aufgabe1.gui.tables.TblDictionaryList;
@@ -94,21 +98,31 @@ public class FrmMainWindowDictionary extends JFrame {
 			if (e.getSource() instanceof IChoiseableMenu) {				
 				IChoiseableMenu mnu = (IChoiseableMenu) e.getSource();
 				if (mnu.getHasCoise() == ChoiseImpl.HASH_IMPL) {
-					setTitle("Wï¿½rterbuch via Hash Directory");
-					//
+					setTitle("Wï¿½rterbuch via Hash Directory");					
 							
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_HASHMAP_IMPL) {
-					setTitle("Wï¿½rterbuch via Map Directory");
+					setTitle("Wï¿½rterbuch via Map Hash Directory");
+					AbstractMain.setBean("Dictionary", 
+							new MapDictionary<String, String>(new HashMap<String, String>()));
 					
+				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_TREEMAP_IMPL) {
+					setTitle("Wï¿½rterbuch via Map Tree Directory");
+					AbstractMain.setBean("Dictionary", 
+							new MapDictionary<String, String>(new TreeMap<String, String>()));
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.SORTED_ARRAY_IMPL) {
 					setTitle("Wï¿½rterbuch via Sorted Array Directory");
-					
+					AbstractMain.setBean("Dictionary", 
+							new SortedArrayDictionary<String, String>());
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
 					setTitle("Wï¿½rterbuch via Tree Directory");
 					
 				}
+				
+				//MEssagebox
+				JOptionPane.showMessageDialog(FrmMainWindowDictionary.this,
+						"Das Wörterbuch wurde zurückgesetzt und muss neu geladen werden");
 			}
 		}
 		

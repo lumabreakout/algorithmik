@@ -18,6 +18,8 @@ public class MnuDictionary extends JMenuBar {
 	
 	private JMenu mnuChoise;
 	private AbstractChoiseableMenuItem mniArrayDictionary;
+	private AbstractChoiseableMenuItem mniMapHashDictionary;
+	private AbstractChoiseableMenuItem mniMapTreeDictionary;	
 	private AbstractChoiseableMenuItem mniHashDictionary;
 	private AbstractChoiseableMenuItem mniTreeDictionary;
 	private AbstractChoiseableMenuItem mniMapDictionary;
@@ -68,6 +70,8 @@ public class MnuDictionary extends JMenuBar {
     	if (mnuChoise == null) {
 			mnuChoise = new JMenu("Implementierungen");
 			mnuChoise.add(getMniArrayDictionary());
+			mnuChoise.add(getMniMapHashDictionary());
+			mnuChoise.add(getMniMapTreeDictionary());
 			mnuChoise.add(getMniHashDictionary());
 			mnuChoise.add(getMniTreeDictionary());
 			mnuChoise.add(getMniMapDictionary());			
@@ -78,7 +82,7 @@ public class MnuDictionary extends JMenuBar {
     
     private JMenuItem getMniArrayDictionary(){
     	if (mniArrayDictionary == null) {
-    		mniArrayDictionary = new AbstractChoiseableMenuItem("ArrayDictionary") {
+    		mniArrayDictionary = new AbstractChoiseableMenuItem("SortedArrayDictionary") {
 				@Override
 				public ChoiseImpl getHasCoise() {
 					return ChoiseImpl.SORTED_ARRAY_IMPL;
@@ -87,6 +91,32 @@ public class MnuDictionary extends JMenuBar {
     		mniArrayDictionary.addActionListener(frmMainWindow.getChooseImplAction());
 		}
 		return mniArrayDictionary;
+    }
+    
+    private JMenuItem getMniMapHashDictionary(){
+    	if (mniMapHashDictionary == null) {
+    		mniMapHashDictionary = new AbstractChoiseableMenuItem("MapHashDictionary") {
+				@Override
+				public ChoiseImpl getHasCoise() {
+					return ChoiseImpl.MAP_HASHMAP_IMPL;
+				}    			
+    		};
+    		mniMapHashDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+		}
+		return mniMapHashDictionary;
+    }
+    
+    private JMenuItem getMniMapTreeDictionary(){
+    	if (mniMapTreeDictionary == null) {
+    		mniMapTreeDictionary = new AbstractChoiseableMenuItem("MapTreeDictionary") {
+				@Override
+				public ChoiseImpl getHasCoise() {
+					return ChoiseImpl.MAP_TREEMAP_IMPL;
+				}    			
+    		};
+    		mniMapTreeDictionary.addActionListener(frmMainWindow.getChooseImplAction());
+		}
+		return mniMapTreeDictionary;
     }
     
     private JMenuItem getMniHashDictionary(){
