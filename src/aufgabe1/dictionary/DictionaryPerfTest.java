@@ -11,20 +11,20 @@ import aufgabe1.collection.AbstractMain;
 public class DictionaryPerfTest {
 	
 	public static void main(String[] agrs) {
-		executeTests(new File("8000.txt"), ChoiseImpl.SORTED_ARRAY_IMPL);
-//		executeTests(new File("16000.txt"), ChoiseImpl.SORTED_ARRAY_IMPL);
-		
-		executeTests(new File("8000.txt"), ChoiseImpl.MAP_HASHMAP_IMPL);
-//		executeTests(new File("16000.txt"), ChoiseImpl.MAP_HASHMAP_IMPL);
-		
-		executeTests(new File("8000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
-//		executeTests(new File("16000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
-		
+//		executeTests(new File("8000.txt"), ChoiseImpl.SORTED_ARRAY_IMPL);
+////		executeTests(new File("16000.txt"), ChoiseImpl.SORTED_ARRAY_IMPL);
+//		
+//		executeTests(new File("8000.txt"), ChoiseImpl.MAP_HASHMAP_IMPL);
+////		executeTests(new File("16000.txt"), ChoiseImpl.MAP_HASHMAP_IMPL);
+//		
+//		executeTests(new File("8000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
+////		executeTests(new File("16000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
+//		
 		executeTests(new File("8000.txt"), ChoiseImpl.HASH_IMPL);
-//		executeTests(new File("16000.txt"), ChoiseImpl.HASH_IMPL);
-	
-		executeTests(new File("8000.txt"), ChoiseImpl.TREE_IMPL);
-//		executeTests(new File("16000.txt"), ChoiseImpl.TREE_IMPL);
+////		executeTests(new File("16000.txt"), ChoiseImpl.HASH_IMPL);
+//	
+//		executeTests(new File("8000.txt"), ChoiseImpl.TREE_IMPL);
+////		executeTests(new File("16000.txt"), ChoiseImpl.TREE_IMPL);
 	}
 
 	private static Dictionary<String, String> createDictionary(ChoiseImpl implementation) {
@@ -47,7 +47,7 @@ public class DictionaryPerfTest {
 		int testingCount = 3;  
 		double nf = Math.pow(10, 6);  // factor to convert from nano seconds to milliseconds
 
-		System.out.printf("~~~ Perfoming tests on %s, using %s%n" +
+		System.out.printf("\n\n~~~ Perfoming tests on %s, using %s%n" +
 				"~~~ average results based on %d test runs:%n", input.getName(), implementation.name(), testingCount);
 		
 		Dictionary<String, String> dict = null;

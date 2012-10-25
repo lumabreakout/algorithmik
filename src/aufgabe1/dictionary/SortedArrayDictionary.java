@@ -16,14 +16,6 @@ public class SortedArrayDictionary<K extends Comparable<? super K>, V> implement
 	private Element<K,V>[] data = new Element[INITIAL_CAPACITY];
 	private int length;
 
-	public static void main(String[] args) {
-		SortedArrayDictionary<String, Integer> dict = new SortedArrayDictionary<String, Integer>();
-		dict.insert("a", 123);
-		dict.insert("c", 456);
-		dict.insert("b", 789);
-		System.out.println(dict.getKeyIndex("c"));
-		System.out.println(dict.toString());
-	}
 	
 
 	@Override
