@@ -127,9 +127,7 @@ public class MnuDictionary extends JMenuBar {
 					return ChoiseImpl.HASH_IMPL;
 				}    			
     		};
-    		mniHashDictionary.addActionListener(frmMainWindow.getChooseImplAction());
-    		mniHashDictionary.setEnabled(false);
-    		
+    		mniHashDictionary.addActionListener(frmMainWindow.getChooseImplAction());	
 		}
 		return mniHashDictionary;
     }
@@ -143,7 +141,6 @@ public class MnuDictionary extends JMenuBar {
 				}    			
     		};
     		mniTreeDictionary.addActionListener(frmMainWindow.getChooseImplAction());
-    		mniTreeDictionary.setEnabled(false);
 		}
 		return mniTreeDictionary;
     }
@@ -157,7 +154,6 @@ public class MnuDictionary extends JMenuBar {
 				}    			
     		};
     		mniMapDictionary.addActionListener(frmMainWindow.getChooseImplAction());
-    		mniMapDictionary.setEnabled(false);
 		}
 		return mniMapDictionary;
     }

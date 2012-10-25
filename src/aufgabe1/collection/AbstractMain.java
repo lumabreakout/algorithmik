@@ -19,10 +19,10 @@ public class AbstractMain {
 	}
 	
 	public static boolean setBean(String objClass, Object obj) {
-		if (beans.get(objClass) == null) {
-			beans.put(objClass, obj);
+		beans.put(objClass, obj);
+		if (beans.get(objClass) == null) {			
 			return true;
-		}	
+		}			
 		return false;
 	}
 	

@@ -18,8 +18,10 @@ import javax.swing.JScrollPane;
 import aufgabe1.collection.AbstractMain;
 import aufgabe1.dictionary.ChoiseImpl;
 import aufgabe1.dictionary.Dictionary;
+import aufgabe1.dictionary.HashDictionary;
 import aufgabe1.dictionary.MapDictionary;
 import aufgabe1.dictionary.SortedArrayDictionary;
+import aufgabe1.dictionary.TreeDictionary;
 import aufgabe1.gui.navigation.IChoiseableMenu;
 import aufgabe1.gui.navigation.MnuDictionary;
 import aufgabe1.gui.tables.TblDictionaryList;
@@ -98,7 +100,9 @@ public class FrmMainWindowDictionary extends JFrame {
 			if (e.getSource() instanceof IChoiseableMenu) {				
 				IChoiseableMenu mnu = (IChoiseableMenu) e.getSource();
 				if (mnu.getHasCoise() == ChoiseImpl.HASH_IMPL) {
-					setTitle("W�rterbuch via Hash Directory");					
+					setTitle("W�rterbuch via Hash Directory");
+					AbstractMain.setBean("Dictionary", 
+							new HashDictionary<String, String>());
 							
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_HASHMAP_IMPL) {
 					setTitle("W�rterbuch via Map Hash Directory");
@@ -117,7 +121,8 @@ public class FrmMainWindowDictionary extends JFrame {
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
 					setTitle("W�rterbuch via Tree Directory");
-					
+					AbstractMain.setBean("Dictionary", 
+							new TreeDictionary<String, String>());
 				}
 				
 				//MEssagebox
