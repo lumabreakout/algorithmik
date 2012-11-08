@@ -20,10 +20,10 @@ public class DictionaryPerfTest {
 //		executeTests(new File("8000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
 ////		executeTests(new File("16000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
 //		
-		executeTests(new File("8000.txt"), ChoiseImpl.HASH_IMPL);
+//		executeTests(new File("8000.txt"), ChoiseImpl.HASH_IMPL);
 ////		executeTests(new File("16000.txt"), ChoiseImpl.HASH_IMPL);
 //	
-//		executeTests(new File("8000.txt"), ChoiseImpl.TREE_IMPL);
+		executeTests(new File("8000.txt"), ChoiseImpl.TREE_IMPL);
 ////		executeTests(new File("16000.txt"), ChoiseImpl.TREE_IMPL);
 	}
 
