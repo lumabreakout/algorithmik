@@ -169,8 +169,53 @@ public class TreeDictionary<K extends Comparable<K>, V> implements Dictionary<K,
 
 	@Override
 	public V remove(K key) {
-		// TODO Auto-generated method stub
-		return null;
+		InsertRetVal<V> retVal = new InsertRetVal<V>();
+		root = removeR(root, retVal, key);
+		return retVal.oldValue;
+	}
+	
+	private Node<K, V> removeR(Node<K, V> p, InsertRetVal<V> retVal , K key) {
+		// key not found nothing
+		if (p == null) { 			
+			return p;
+			
+		// insert left
+		} else if (p.element.key.compareTo(key) > 0) {
+			p.left = removeR(p.left, retVal, key);
+			
+		// insert right
+		} else if (p.element.key.compareTo(key) < 0) {
+			p.right = removeR(p.right, retVal, key);
+		
+		// key found -> replace
+		} else {			
+			retVal.oldValue = p.element.value; // store old Value
+			
+			// one child or no Child
+			if (p.left == null || p.right == null) {				
+				if (p.left != null) {
+					p = p.left;
+				} else {
+					p = p.right;
+				}	
+				
+			// too children
+			} else {
+				p.element = getMin(p.right);
+				p.right = removeR(p.right, retVal, p.element.key);
+			}			
+		}
+		
+		p = balance(p);
+		
+		return p;
+	}
+	
+	private Element<K, V> getMin(Node<K, V> p) {
+		assert (p != null);
+		while(p.left != null)
+		p = p.left;
+		return p.element;
 	}
 
 	@Override
