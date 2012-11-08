@@ -51,7 +51,7 @@ public class MnuDictionary extends JMenuBar {
     
     private JMenuItem getMniSave() {
     	if (mniSave == null) {
-			mniSave = new JMenuItem("Wörterbuch speichern");
+			mniSave = new JMenuItem("Woerterbuch speichern");
 			mniSave.addActionListener(frmMainWindow.getSaveAction());			
 		}
 		return mniSave;
@@ -59,7 +59,7 @@ public class MnuDictionary extends JMenuBar {
     
     private JMenuItem getMniLoad() {
     	if (mniLoad == null) {
-			mniLoad = new JMenuItem("Wörterbuch laden");
+			mniLoad = new JMenuItem("Woerterbuch laden");
 			mniLoad.addActionListener(frmMainWindow.getLoadAction());
 		}
 		return mniLoad;

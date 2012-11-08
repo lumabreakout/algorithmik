@@ -100,27 +100,27 @@ public class FrmMainWindowDictionary extends JFrame {
 			if (e.getSource() instanceof IChoiseableMenu) {				
 				IChoiseableMenu mnu = (IChoiseableMenu) e.getSource();
 				if (mnu.getHasCoise() == ChoiseImpl.HASH_IMPL) {
-					setTitle("W�rterbuch via Hash Directory");
+					setTitle("Woerterbuch via Hash Directory");
 					AbstractMain.setBean("Dictionary", 
 							new HashDictionary<String, String>());
 							
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_HASHMAP_IMPL) {
-					setTitle("W�rterbuch via Map Hash Directory");
+					setTitle("Woerterbuch via Map Hash Directory");
 					AbstractMain.setBean("Dictionary", 
 							new MapDictionary<String, String>(new HashMap<String, String>()));
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.MAP_TREEMAP_IMPL) {
-					setTitle("W�rterbuch via Map Tree Directory");
+					setTitle("Woerterbuch via Map Tree Directory");
 					AbstractMain.setBean("Dictionary", 
 							new MapDictionary<String, String>(new TreeMap<String, String>()));
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.SORTED_ARRAY_IMPL) {
-					setTitle("W�rterbuch via Sorted Array Directory");
+					setTitle("Woerterbuch via Sorted Array Directory");
 					AbstractMain.setBean("Dictionary", 
 							new SortedArrayDictionary<String, String>());
 					
 				} else if (mnu.getHasCoise() == ChoiseImpl.TREE_IMPL) {
-					setTitle("W�rterbuch via Tree Directory");
+					setTitle("Woerterbuch via Tree Directory");
 					AbstractMain.setBean("Dictionary", 
 							new TreeDictionary<String, String>());
 				}
@@ -153,7 +153,7 @@ public class FrmMainWindowDictionary extends JFrame {
     }
     
     protected void initialize() {
-    	this.setTitle("W�rterbuch");
+    	this.setTitle("Woerterbuch");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(getCloseAction());	
         Dimension dim = new Dimension(800, 600);

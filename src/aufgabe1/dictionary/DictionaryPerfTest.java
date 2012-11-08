@@ -11,16 +11,16 @@ import aufgabe1.collection.AbstractMain;
 public class DictionaryPerfTest {
 	
 	public static void main(String[] agrs) {
-//		executeTests(new File("8000.txt"), ChoiseImpl.SORTED_ARRAY_IMPL);
+		executeTests(new File("8000.txt"), ChoiseImpl.SORTED_ARRAY_IMPL);
 ////		executeTests(new File("16000.txt"), ChoiseImpl.SORTED_ARRAY_IMPL);
 //		
-//		executeTests(new File("8000.txt"), ChoiseImpl.MAP_HASHMAP_IMPL);
+		executeTests(new File("8000.txt"), ChoiseImpl.MAP_HASHMAP_IMPL);
 ////		executeTests(new File("16000.txt"), ChoiseImpl.MAP_HASHMAP_IMPL);
 //		
-//		executeTests(new File("8000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
+		executeTests(new File("8000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
 ////		executeTests(new File("16000.txt"), ChoiseImpl.MAP_TREEMAP_IMPL);
 //		
-//		executeTests(new File("8000.txt"), ChoiseImpl.HASH_IMPL);
+		executeTests(new File("8000.txt"), ChoiseImpl.HASH_IMPL);
 ////		executeTests(new File("16000.txt"), ChoiseImpl.HASH_IMPL);
 //	
 		executeTests(new File("8000.txt"), ChoiseImpl.TREE_IMPL);
