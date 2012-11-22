@@ -22,7 +22,7 @@ public class MnuDictionaryTbl extends JMenu {
 	
 	private JMenuItem getMniNew(){
     	if (mniNew == null) {
-    		mniNew = new JMenuItem("Neues Wort Anlegen");
+    		mniNew = new JMenuItem("Neues Wort anlegen");
     		mniNew.addActionListener(table.getNewAction());
 		}
 		return mniNew;
@@ -30,7 +30,7 @@ public class MnuDictionaryTbl extends JMenu {
 	
 	private JMenuItem getMniDelete(){
     	if (mniDelete == null) {
-    		mniDelete = new JMenuItem("Wort Löschen");
+    		mniDelete = new JMenuItem("Wort Loeschen");
     		mniDelete.addActionListener(table.getDeleteAction());
 		}
 		return mniDelete;
