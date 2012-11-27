@@ -1,13 +1,10 @@
 package aufgabe2.graph;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class AdjacencyListUndirectedGraph<V> implements UndirectedGraph<V> {
 	
@@ -92,56 +89,46 @@ public class AdjacencyListUndirectedGraph<V> implements UndirectedGraph<V> {
 
 	@Override
 	public List<V> getVertexList() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<V>(adjacencyList.keySet());
 	}
 
-	private Comparator<Edge<V>> getUndirectedEdgeComparator() {
-		return new Comparator<Edge<V>>() {
-
-			@Override
-			public int compare(Edge<V> edge1, Edge<V> edge2) {
-				if ((edge1.source == edge2.target) && (edge1.target == edge2.source) &&
-						(edge1.weight == edge2.weight)) {
-					return 0;
-				}
-				return 1;
-			}
-			
-		};
-	}
-	
 	@Override
 	public List<Edge<V>> getEdgeList() {
-		Set<Edge<V>> retList = new TreeSet<Edge<V>>(getUndirectedEdgeComparator());
+
+		List<Edge<V>> edgeList = new ArrayList<Edge<V>>();
+		List<V> visitedNodes = new LinkedList<V>();
 		
 		for (Entry<V, HashMap<V, Double>> vertexEntry : adjacencyList.entrySet()) {			
 			for (Entry<V, Double> edgeEntry : vertexEntry.getValue().entrySet()) {
-				retList.add(new Edge<V>(vertexEntry.getKey(), edgeEntry.getKey(), edgeEntry.getValue()));
+				if (!visitedNodes.contains(edgeEntry.getKey())) {
+					edgeList.add(new Edge<V>(vertexEntry.getKey(), edgeEntry.getKey()));
+				}
+				
 			}
+			visitedNodes.add(vertexEntry.getKey());
 		}		 
 		
-		List<Edge<V>> edgeList = new ArrayList<Edge<V>>();
-		edgeList.addAll(retList);
 		return edgeList;
+
 	}
 
 	@Override
 	public List<V> getAdjacentVertexList(V v) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<V>(adjacencyList.get(v).keySet());
 	}
 
 	@Override
 	public List<Edge<V>> getIncidentEdgeList(V v) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Edge<V>> res = new LinkedList<Edge<V>>();
+		for (Entry<V, Double> edgeEntry : adjacencyList.get(v).entrySet()) {		
+			res.add(new Edge<V>(v, edgeEntry.getKey()));
+		}
+		return res;
 	}
 
 	@Override
 	public int getDegree(V v) {
-		// TODO Auto-generated method stub
-		return 0;
+		return adjacencyList.get(v).size();
 	}
 
 }
