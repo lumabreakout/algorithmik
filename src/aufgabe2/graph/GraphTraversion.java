@@ -2,8 +2,11 @@ package aufgabe2.graph;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import sun.security.provider.certpath.Vertex;
 
 
 public class GraphTraversion {
@@ -74,7 +77,33 @@ public class GraphTraversion {
 	 * @return
 	 */
 	public static <V> List<V> topologicalSort(DirectedGraph<V> g) {
-		return null;
+		List<V> ts = new LinkedList<V>(); // topologisch sortierte Folge
+		HashMap<V, Integer> inDegree = new HashMap<V, Integer>(); // Anz. noch nicht besuchter Vorgänger
+		Deque<V> q = new LinkedList<V>();
+				
+		for (V vert : g.getVertexList()) {			
+			inDegree.put(vert, g.getInDegree(vert));
+			if (inDegree.get(vert).equals(0)) {
+				q.add(vert);
+			}			
+		}
+				
+		while (! q.isEmpty() ) {
+			V vert = q.remove();
+			ts.add(vert);			
+			
+			for (V w : g.getSuccessorVertexList(vert)) {
+				inDegree.put(w, inDegree.get(w) -1);
+				if (inDegree.get(w).equals(0)) {
+					q.add(w);
+				}				
+			}
+		}
+		if (ts.size() != g.getNumberOfVertexes()) {
+			return null; // Graph zyklisch;
+		} else {
+			return ts;
+		}
 	}
 
 }

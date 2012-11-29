@@ -8,10 +8,13 @@ import java.util.Map.Entry;
 
 public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 	
-	private HashMap<V, HashMap<V, Double>> adjacencyList;
+	public static final int PREDECESSOR_LIST = 0;
+	public static final int SUCCESSOR_LIST = 1;
+	
+	private HashMap<V, List<HashMap<V, Double>>> adjacencyList;
 	
 	public AdjacencyListDirectedGraph() {
-		adjacencyList = new HashMap<V, HashMap<V, Double>>();
+		adjacencyList = new HashMap<V, List<HashMap<V, Double>>>();
 	}
 
 	@Override
@@ -20,7 +23,11 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 			return false;
 		}
 		
-		adjacencyList.put(v, new HashMap<V, Double>());
+		List<HashMap<V, Double>> vertexLists = new LinkedList<HashMap<V, Double>>();
+		vertexLists.add(new HashMap<V, Double>());  // Predecessor vertices (Knoten die auf mich zeigen)
+		vertexLists.add(new HashMap<V, Double>());  // Successor vertices (Knoten auf die ich zeige)
+		adjacencyList.put(v, vertexLists);
+		
 		return true;
 	}
 
@@ -46,14 +53,17 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 			throw new IllegalArgumentException("target and source can not be the same");
 		}
 		
+		
 		// edge does already exist
-		if (adjacencyList.get(v).containsKey(w)) {
-			return false;
+		if (adjacencyList.get(v).get(SUCCESSOR_LIST).containsKey(w) ||
+			adjacencyList.get(w).get(PREDECESSOR_LIST).containsKey(v)) {
+			return false;			
 		}
+		// outgoing Successor		
+		adjacencyList.get(v).get(SUCCESSOR_LIST).put(w, weight); 
 		
-		
-		
-		adjacencyList.get(v).put(w, weight);
+		// incoming Predecessor
+		adjacencyList.get(w).get(PREDECESSOR_LIST).put(v, weight);		
 		
 		return true;
 	}
@@ -70,7 +80,7 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 			return false;
 		}
 				
-		return adjacencyList.get(v).containsKey(w);
+		return adjacencyList.get(v).get(SUCCESSOR_LIST).containsKey(w);
 	}
 
 	@Override
@@ -79,7 +89,7 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 			throw new IllegalArgumentException("Edge does not exist");
 		}
 		
-		return adjacencyList.get(v).get(w).doubleValue();
+		return adjacencyList.get(v).get(SUCCESSOR_LIST).get(w).doubleValue();
 	}
 
 	@Override
@@ -101,8 +111,8 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 	public List<Edge<V>> getEdgeList() {
 		List<Edge<V>> edgeList = new ArrayList<Edge<V>>();		
 		
-		for (Entry<V, HashMap<V, Double>> vertexEntry : adjacencyList.entrySet()) {			
-			for (Entry<V, Double> edgeEntry : vertexEntry.getValue().entrySet()) {			
+		for (Entry<V, List<HashMap<V, Double>>> vertexEntry : adjacencyList.entrySet()) {			
+			for (Entry<V, Double> edgeEntry : vertexEntry.getValue().get(SUCCESSOR_LIST).entrySet()) {			
 				edgeList.add(new Edge<V>(vertexEntry.getKey(), edgeEntry.getKey()));				
 			}			
 		}		 
@@ -113,33 +123,25 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 	@Override
 	public List<V> getAdjacentVertexList(V v) {
 		List<V> res = new ArrayList<V>();
-		for (Edge<V> edge : getEdgeList()) {
-			
-			if (edge.getSource().equals(v) &&
-				!res.contains(edge.getTarget())) {
-				res.add(edge.getTarget());
-			
-//			TODO: alle knoten oder nur zielknoten w von v->w
-//			} else if(edge.getTarget().equals(v) && 
-//					!res.contains(edge.getSource())) {			
-//				res.add(edge.getSource());
-			}
-		}
+		
+		res.addAll(adjacencyList.get(v).get(PREDECESSOR_LIST).keySet());
+		res.addAll(adjacencyList.get(v).get(SUCCESSOR_LIST).keySet());
+		
 		return res;
 	}
 
 	@Override
 	public List<Edge<V>> getIncidentEdgeList(V v) {
-		List<Edge<V>> res = new LinkedList<Edge<V>>();
-		for (Entry<V, Double> edgeEntry : adjacencyList.get(v).entrySet()) {		
-			res.add(new Edge<V>(v, edgeEntry.getKey()));
-		}
-		return res;
+		return getOutgoingEdgeList(v);
 	}
 
 	@Override
 	public int getInDegree(V v) {
-		return getIncomingEdgeList(v).size();
+		if (!containsVertex(v)) {
+			throw new IllegalArgumentException("Vertex does not exist");
+		}
+		
+		return adjacencyList.get(v).get(PREDECESSOR_LIST).size();
 	}
 
 	@Override
@@ -148,24 +150,28 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 			throw new IllegalArgumentException("Vertex does not exist");
 		}
 		
-		return adjacencyList.get(v).keySet().size();
+		return adjacencyList.get(v).get(SUCCESSOR_LIST).size();
 	}
 
 	@Override
-	public List<V> getPredecessorVertexList(V v) {			
-		List<V> res = new ArrayList<V>();
-		for (Edge<V> edge : getIncomingEdgeList(v)) {
-			res.add(edge.getSource());
+	public List<V> getPredecessorVertexList(V v) {
+		if (!containsVertex(v)) {
+			throw new IllegalArgumentException("Vertex does not exist");
 		}
+		
+		List<V> res = new ArrayList<V>();
+		res.addAll(adjacencyList.get(v).get(PREDECESSOR_LIST).keySet());
 		return res;
 	}
 
 	@Override
 	public List<V> getSuccessorVertexList(V v) {
-		List<V> res = new ArrayList<V>();
-		for (Edge<V> edge : getOutgoingEdgeList(v)) {
-			res.add(edge.getTarget());
+		if (!containsVertex(v)) {
+			throw new IllegalArgumentException("Vertex does not exist");
 		}
+		
+		List<V> res = new ArrayList<V>();
+		res.addAll(adjacencyList.get(v).get(SUCCESSOR_LIST).keySet());
 		return res;
 	}
 
@@ -175,8 +181,8 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 			throw new IllegalArgumentException("Vertex does not exist");
 		}
 		List<Edge<V>> res = new ArrayList<Edge<V>>();
-		for (V key : adjacencyList.get(v).keySet()) {
-			res.add(new Edge<V>(v, key));
+		for (Entry<V, Double> edgeEntry : adjacencyList.get(v).get(SUCCESSOR_LIST).entrySet()) {		
+			res.add(new Edge<V>(v, edgeEntry.getKey()));
 		}
 		
 		return res;
@@ -189,10 +195,8 @@ public class AdjacencyListDirectedGraph<V> implements DirectedGraph<V> {
 		}
 		
 		List<Edge<V>> res = new ArrayList<Edge<V>>();
-		for (Edge<V> edge : getEdgeList()) {
-			if (edge.getTarget().equals(v)) {
-				res.add(edge);
-			}
+		for (Entry<V, Double> edgeEntry : adjacencyList.get(v).get(PREDECESSOR_LIST).entrySet()) {		
+			res.add(new Edge<V>(edgeEntry.getKey(), v));
 		}
 	
 		return res;

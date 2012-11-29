@@ -65,9 +65,49 @@ public class TestGraph {
 		graf3.addEdge(5, 7);
 		graf3.addEdge(5, 6);
 		
-		System.out.println(GraphTraversion.depthFirstSearch(graf3, graf3.getVertexList().get(0)));
-		System.out.println(GraphTraversion.breadthFirstSearch(graf3, graf3.getVertexList().get(0)));
+		System.out.println("depthFirstSearch " + GraphTraversion.depthFirstSearch(graf3, 
+				graf3.getVertexList().get(0)));
+		System.out.println("breadthFristSearch " + GraphTraversion.breadthFirstSearch(graf3, 
+				graf3.getVertexList().get(0)));		
+		
+		// topological without cycle
+		System.out.println("topologicalSort " + GraphTraversion.topologicalSort(graf3));
 	
+		// topological with cycle
+		graf3.addEdge(6, 7);
+		graf3.addEdge(7, 1);
+		System.out.println("topologicalSort " + GraphTraversion.topologicalSort(graf3));
+
+		
+		// 5. morgendliche Anziehen
+		DirectedGraph<String> graf4 = new AdjacencyListDirectedGraph<String>();
+		graf4.addVertex("Strümpfe");
+		graf4.addVertex("Schuhe");
+		graf4.addVertex("Hose");
+		graf4.addVertex("Unterhose");
+		graf4.addVertex("Unterhemd");
+		graf4.addVertex("Hemd");
+		graf4.addVertex("Gürtel");
+		graf4.addVertex("Pullover");
+		graf4.addVertex("Mantel");
+		graf4.addVertex("Schal");
+		graf4.addVertex("Handschuhe");
+		graf4.addVertex("Mütze");
+		
+		graf4.addEdge("Strümpfe", "Schuhe");
+		graf4.addEdge("Unterhose", "Hose");
+		graf4.addEdge("Hose", "Schuhe");
+		graf4.addEdge("Hose", "Gürtel");
+		graf4.addEdge("Unterhemd", "Hemd");
+		graf4.addEdge("Hemd", "Pullover");
+		graf4.addEdge("Pullover", "Mantel");
+		graf4.addEdge("Mantel", "Schal");
+		graf4.addEdge("Schal", "Handschuhe");
+		graf4.addEdge("Schuhe", "Handschuhe");
+		graf4.addEdge("Hose", "Handschuhe");
+		
+		System.out.println("topologicalSort " + GraphTraversion.topologicalSort(graf4));
+
 	}
 
 }
