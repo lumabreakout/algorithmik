@@ -15,7 +15,7 @@ import aufgabe2.graph.DijkstraShortestPath;
 public class aufgabe2_8 {
 	
 	private static final double BUS = 2;
-	private static final double TAXI = 60;
+	private static final double TAXI = 3;
 	private static final double UBAHN = 5;
 
 	public static void main(String[] args) {
@@ -27,8 +27,6 @@ public class aufgabe2_8 {
 		
 		File f = new File("ScotlandYard.txt");
 		Scanner s = null;
-		
-		
 		
 		try {
 			s = new Scanner(f);
@@ -72,7 +70,7 @@ public class aufgabe2_8 {
 			}
 			
 						
-			sim.startSequence("Kürzester weg von 1 nach 188");
+			sim.startSequence("Kuerzester weg von 1 nach 188");
 			List<Integer> visitOrder = new ArrayList<Integer>();
 			visitOrder = navi.getShortestPathTo(7);
 			
