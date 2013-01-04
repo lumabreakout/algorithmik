@@ -23,5 +23,9 @@ public interface UndirectedGraph<V> extends Graph<V> {
      * @return Knotengrad
      */
     int getDegree(V v);
+    
+    public void clearEdges();
 }
+
+
 

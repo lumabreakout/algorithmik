@@ -19,11 +19,19 @@ public class AdjacencyListUndirectedGraph<V> implements UndirectedGraph<V> {
 		if (adjacencyList.containsKey(v)) {
 			return false;
 		}
-		
-		
-		
+
 		adjacencyList.put(v, new HashMap<V, Double>());
 		return true;
+	}
+	
+	/**
+	 * delete all edges in this graph.
+	 */
+	@Override
+	public void clearEdges() {
+		for (HashMap<V, Double> edges : adjacencyList.values() ) {
+			edges.clear();
+		}
 	}
 
 	@Override
